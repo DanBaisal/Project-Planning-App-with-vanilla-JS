@@ -159,7 +159,23 @@ class App {
         const finishedProjectsList = new ProjectList('finished');
         activeProjectsList.setSwitchHandlerFunction(finishedProjectsList.addProject.bind(finishedProjectsList));
         finishedProjectsList.setSwitchHandlerFunction(activeProjectsList.addProject.bind(activeProjectsList));
+
+       const timedId = setTimeout(this.startAnalytics, 3000);
+       document.getElementById('stop-analytics-btn').addEventListener('click', ()=> {
+        clearTimeout(timedId);
+       });
+    }
+
+    static startAnalytics() {
+            const analyticsScript = document.createElement('script');
+            analyticsScript.src = 'assets/scripts/analytics.js';
+            analyticsScript.defer = true;
+            document.head.append(this.analyticsScript);
     }
 }
 
 App.init();
+
+
+// You can use location and history to move users around, for example from one page to another and trace back what you've done so far
+// Be careful though, because that may spoil user experience
